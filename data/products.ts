@@ -53,21 +53,7 @@ const products = [
     name: 'BBQ Chicken',
     image:
       'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/veggie.png',
-    price: 12.89,
-  },
-  {
-    id: 9,
-    name: 'Chicken Bacon Ranch',
-    image:
-      'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/extravaganzza.png',
-    price: 13.99,
-  },
-  {
-    id: 10,
-    name: '6 Cheese',
-    image:
-      'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/6cheese.png',
-    price: 13.29,
+    price: 12.89
   },
 ];
 
