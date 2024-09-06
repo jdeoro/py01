@@ -31,9 +31,10 @@ export default function TabLayout() {
         name="menu"
         options={{
           title: 'Menu',
+          headerShown:true,
           tabBarIcon: ({ color }) => <TabBarIcon name="cutlery" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/cart" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome

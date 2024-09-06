@@ -1,26 +1,44 @@
 import Colors from '@/constants/Colors'
-import { useLocalSearchParams, usePathname } from 'expo-router'
-import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { Stack, useLocalSearchParams, usePathname } from 'expo-router'
+import React,{useState} from 'react'
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import products from '@/data/products'
 import { defaultImg } from '@/components/ListProduct'
 
 const producto = () => {
-  const {id} = useLocalSearchParams()
+  const { id } = useLocalSearchParams();
 
-  const item = products.find( ele =>  ele.id.toString() === id )
+  const item = products.find((ele) => ele.id.toString() === id);
+  const sizes = ["Grande", "Chica", "Porcion"];
+  const [sizesel, setSizesel] = useState(sizes[0]);
 
-  if (!item)
-    return null
+  
+  if (!item) return null;
 
   return (
     <View style={style.container}>
+      <Stack.Screen options={{ title: item.name }} />
+      <Image
+        style={style.image}
+        source={{ uri: item.image || defaultImg }}
+        resizeMode="contain"
+      />
+      <Text style={{marginBottom:10, marginLeft:10}}>Seleccionar tamaño</Text>
 
-      <Image style={style.image}
-       source={{ uri: item.image || defaultImg }} resizeMode='contain'
-        />
-      <Text style={style.title}>{item.name}</Text>
-      <Text style={style.price}>{item.price}</Text>     
+      <View style={style.sizeMatriz}>
+        {sizes.map((size) => (
+          <Pressable onPress={() => setSizesel(size)} key={size}>
+              <Text style={[ style.size, {fontSize:15, backgroundColor: sizesel === size ? "#DBDBDB" : "white" }]}>
+                {size}
+              </Text>
+          </Pressable>
+        ))}
+      </View>
+
+      <View>
+        <Text>${item.price}</Text>
+      </View>
+
     </View>
   );
 }
@@ -28,10 +46,8 @@ const producto = () => {
 export const style = StyleSheet.create( {
   container: {
     backgroundColor: 'white',
-    padding: 10,
-    flex: 1,
+    flex:1,
   },
-
   image: {
     width: '100%',
     aspectRatio: 1,
@@ -40,12 +56,26 @@ export const style = StyleSheet.create( {
     fontSize: 18,
     fontWeight: '600',
     marginVertical: 10,
-    display:'flex',
   },
   price: {
     color: Colors.light.tint,
     fontWeight: 'bold',
   },
+ sizeMatriz : {
+     backgroundColor:'white',
+     flexDirection:'row',
+     justifyContent:'space-around',
+     padding:10,
+     marginVertical:10,
+ },
+ size: {
+   backgroundColor:'white',
+   width:50,
+   aspectRatio:1,
+   borderRadius :45,
+   justifyContent:'center',
+
+ }
  
 })
 export default producto
